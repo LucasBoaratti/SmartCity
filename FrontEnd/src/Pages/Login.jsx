@@ -1,23 +1,94 @@
 import { useNavigate } from "react-router-dom";
 import css from "./Login.module.css";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useState } from "react";
+
+const schemaLogin = z.object({
+    username: z.string()
+        .min(1, "Digite um nome, por favor.")
+        .max(50, "O nome não pode ter mais de 50 caracteres."),
+    password: z.string()
+        .min(8, "Digite uma senha, por favor.")
+        .max(100, "A senha não pode ter mais de 100 caracteres."), 
+})
 
 export function Login() {
+    const [erro, setErro] = useState("");
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(schemaLogin)
+    })
+
+    async function obter_dados_login(data) {
+        try {
+            const response = await axios.post("http://127.0.0.1:8000/smartcity/login", {
+                username: data.username,
+                password: data.password,
+            });
+
+            const { access, refresh, usuario } = response.data;
+
+            localStorage.setItem("access_token", access);
+            localStorage.setItem("refresh_token", refresh);
+            localStorage.setItem("id_usuario", usuario.id);
+            localStorage.setItem("username", usuario.username);
+            localStorage.setItem("funcao", usuario.funcao);
+
+            alert("O modal será colocado em breve :)");
+
+            navigate("/home");
+        }
+        catch(error) {
+            setErro("Usuário não cadastrado no sistema.");
+        }
+    }
+
     const navigate = useNavigate();
 
     return (
         <main className={css.container}>
             <section className={css.formularioLogin}>
                 <h1>Olá, seja bem vindo(a) à SmartLucas!!!</h1>
-                <form>
-                    <label htmlFor="nome">Nome:</label> <br />
-                    <input type="text" name="nome" id="nome" placeholder="Digite seu nome aqui"/> <br />
+                <form onSubmit={handleSubmit(obter_dados_login)}>
+                    <label 
+                        htmlFor="nome">
+                        Nome:
+                    </label> <br />
+                    <input 
+                        type="text" 
+                        name="nome" 
+                        id="nome" 
+                        placeholder="Digite seu nome aqui"
+                        {...register("username")}
+                    /> <br />
+                    {errors.username && <p>{"Aviso"}: {errors.username.message}</p>}
 
-                    <label htmlFor="senha">Senha:</label> <br />
-                    <input type="password" name="senha" id="senha" placeholder="Digite sua senha aqui"/> <br />
+                    <label 
+                        htmlFor="senha"
+                    >
+                        Senha:
+                    </label> <br />
+                    <input 
+                        type="password" 
+                        name="senha" 
+                        id="senha" 
+                        placeholder="Digite sua senha aqui"
+                        {...register("password")}
+                    /> <br />
+                    {errors.username && <p>{"Aviso"}: {errors.password.message}</p>}
 
-                    <p>Ainda não possui uma conta? Faça seu cadastro <u>aqui!</u></p>
+                    <p className={css.fazerCadastro}>Ainda não possui uma conta? Faça seu cadastro <u onClick={() => navigate("/cadastro")} style={{ cursor:"pointer" }}>aqui!</u></p>
 
-                    <button type="button" onClick={() => navigate("/home")}>Entrar</button>
+                    <div className={css.botao}>
+                        <button type="submit">Entrar</button>
+                    </div>
                 </form>
             </section>
         </main>
