@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useState } from "react";
+import { LoginModal } from "../Components/LoginModal";
 
 const schemaLogin = z.object({
     username: z.string()
@@ -17,6 +18,7 @@ const schemaLogin = z.object({
 
 export function Login() {
     const [erro, setErro] = useState("");
+    const [login, setLogin] = useState(false);
 
     const {
         register,
@@ -38,15 +40,15 @@ export function Login() {
             localStorage.setItem("access_token", access);
             localStorage.setItem("refresh_token", refresh);
             localStorage.setItem("id_usuario", usuario.id);
-            localStorage.setItem("username", usuario.username);
-            localStorage.setItem("funcao", usuario.funcao);
+            localStorage.setItem("username", usuario.Nome);
+            localStorage.setItem("funcao", usuario.Função);
 
-            alert("O modal será colocado em breve :)");
-
-            navigate("/home");
+            setLogin(true);
         }
         catch(error) {
             setErro("Usuário não cadastrado no sistema.");
+
+            
         }
     }
 
@@ -82,13 +84,14 @@ export function Login() {
                         placeholder="Digite sua senha aqui"
                         {...register("password")}
                     /> <br />
-                    {errors.username && <p>{"Aviso"}: {errors.password.message}</p>}
+                    {errors.password && <p>{"Aviso"}: {errors.password.message}</p>}
 
                     <p className={css.fazerCadastro}>Ainda não possui uma conta? Faça seu cadastro <u onClick={() => navigate("/cadastro")} style={{ cursor:"pointer" }}>aqui!</u></p>
 
                     <div className={css.botao}>
-                        <button type="submit">Entrar</button>
-                    </div>
+                        <button type="submit" onClick={() => navigate("/")}>Entrar</button>
+                    </div> 
+                    {login && <LoginModal openModal={login} closeModal={() => setLogin(false)}/>}
                 </form>
             </section>
         </main>

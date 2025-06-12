@@ -5,9 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class Usuario(AbstractUser):
     cargo = [
+        ("Administrador", "Administrador"),
         ("Professor", "Professor"),
-        ("Aluno", "Aluno"),
-        ("Diretor", "Diretor"),
     ]
     funcao = models.CharField(max_length=30, choices=cargo, default="Aluno")
 
