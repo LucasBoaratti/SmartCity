@@ -32,12 +32,13 @@
     width: 100px;
     height: 2rem;
     background-color: #F5E517;
+    font-size: 1rem;
     border-radius: 25px;
     border: 2px solid black;
-    font-size: 1rem;
+    cursor: pointer;
 } 
 
 .botao {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 10px;
 }

@@ -27,41 +27,40 @@ class HistoricoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class UsuarioCadastradoSerializer(serializers.ModelSerializer):
-    nome = serializers.CharField(write_only=True)
-    username = serializers.CharField(read_only=True)
-    email = serializers.EmailField()
-    senha = serializers.CharField(write_only=True)
+    username = serializers.CharField(write_only=True)
+    email = serializers.CharField()
+    password = serializers.CharField(write_only=True)
     confirmarSenha = serializers.CharField(write_only=True)
     funcao = serializers.ChoiceField(choices=[("Administrador, Administrador"), ("Professor", "Professor")])
 
     class Meta:
         model = Usuario
 
-        fields = ["nome", "username", "email", "senha", "confirmarSenha", "funcao"]
+        fields = ["username", "email", "password", "confirmarSenha", "funcao"]
 
         extra_kwargs = {
             "password": {"write_only": True},
         }
 
     def validate(self, data):
-        if data["senha"] != data["confirmarSenha"]:
+        if data["password"] != data["confirmarSenha"]:
             raise serializers.ValidationError("As senhas não coincidem.")
         return data
 
     def create(self, validated_data):
-        nome = validated_data["nome"]
+        username = validated_data["username"]
         email = validated_data["email"]
-        senha = validated_data["senha"]
+        password = validated_data["password"]
         funcao = validated_data["funcao"]
 
         usuario = Usuario(
-            username=nome,
+            username=username,
             email=email,
-            password=senha,
+            password=password,
             funcao=funcao,
         )
 
-        usuario.set_password(validated_data["senha"])
+        usuario.set_password(validated_data["password"])
 
         usuario.save()
 

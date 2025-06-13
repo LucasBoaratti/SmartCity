@@ -44,6 +44,8 @@ export function Login() {
             setLogin(true);
         }
         catch(error) {
+            console.log(error.response?.data);
+            
             setErro("Usuário não cadastrado no sistema.");
 
             alert("Usuário não cadastrado no sistema.");
@@ -58,12 +60,12 @@ export function Login() {
                 <h1>Olá, seja bem vindo(a) à SmartLucas!!!</h1>
                 <form onSubmit={handleSubmit(obter_dados_login)}>
                     <label 
-                        htmlFor="nome">
+                        htmlFor="username">
                         Nome:
                     </label> <br />
                     <input 
                         type="text" 
-                        name="nome" 
+                        name="username" 
                         id="nome" 
                         placeholder="Digite seu nome aqui"
                         {...register("username")}

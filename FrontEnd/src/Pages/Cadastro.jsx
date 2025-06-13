@@ -4,17 +4,19 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios"
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { CadastroModal } from "../Components/CadastroModal";
 
 const schemaCadastro = z.object({
-    nome: z.string()
+    username: z.string()
         .min(1, "Digite seu nome, por favor."),
     email: z.string(),
-    senha: z.string()
+    password: z.string()
         .min(8, "A senha tem que possuir no mínimo 8 caracteres."),
     confirmarSenha: z.string()
-        .min(8, "A senha tem que possuir no mínimo 8 caracteres.")
-}).refine((data) => data.senha === data.confirmarSenha, {
+        .min(8, "A senha tem que possuir no mínimo 8 caracteres."),
+    funcao: z.enum(["Administrador", "Professor"]),
+}).refine((data) => data.password === data.confirmarSenha, {
             message: "As senhas não coincidem.",
             path: ["confirmarSenha"],
 })
@@ -33,13 +35,21 @@ export function Cadastro() {
 
     const navigate = useNavigate();
 
-    async function obter_dados_cadastro() {
+    async function obter_dados_cadastro(data) {
         try {
-            const response = axios.post("http://127.0.0.1:8000/smartcity/cadastro");
+            const response = await axios.post("http://127.0.0.1:8000/smartcity/cadastro", {
+                username: data.username,
+                email: data.email,
+                password: data.password,
+                confirmarSenha: data.confirmarSenha,
+                funcao: data.funcao,
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
 
-            setCadastro("Usuário cadastrado com sucesso!", response.data);
-
-            navigate("/");
+            setCadastro(true);
         }
         catch(error) {
             setErro("Erro ao cadastrar usuário.");
@@ -57,9 +67,9 @@ export function Cadastro() {
                         name="nome" 
                         id="nome"
                         placeholder="Digite seu nome aqui" 
-                        {...register("nome")}
+                        {...register("username")}
                     /> <br />
-                    {errors.nome && <p>{errors.nome.message}</p>}
+                    {errors.username && <p>{"Aviso"}: {errors.username.message}</p>}
 
                     <label htmlFor="email">E-mail:</label> <br />
                     <input 
@@ -69,7 +79,7 @@ export function Cadastro() {
                         placeholder="Digite seu E-Mail aqui" 
                         {...register("email")}
                     /> <br />
-                    {errors.email && <p>{errors.email.message}</p>}
+                    {errors.email && <p>{"Aviso"}: {errors.email.message}</p>}
 
                     <label htmlFor="senha">Senha:</label> <br />
                     <input 
@@ -77,9 +87,9 @@ export function Cadastro() {
                         name="senha" 
                         id="senha"
                         placeholder="Digite sua senha aqui" 
-                        {...register("senha")}
+                        {...register("password")}
                     /> <br />
-                    {errors.senha && <p>{errors.senha.message}</p>}
+                    {errors.senha && <p>{"Aviso"}: {errors.senha.message}</p>}
 
                     <label htmlFor="confirmarSenha">Confirmar senha:</label> <br />
                     <input 
@@ -89,13 +99,21 @@ export function Cadastro() {
                         placeholder="Digite sua senha aqui"
                         {...register("confirmarSenha")}
                     /> <br />
-                    {errors.confirmarSenha && <p>{errors.confirmarSenha.message}</p>}
+                    {errors.confirmarSenha && <p>{"Aviso"}: {errors.confirmarSenha.message}</p>}
 
-                    <p>Já possui uma conta? Faça seu login <u onClick={() => navigate("/")}>aqui!</u></p>
+                    <label htmlFor="funcao">Função:</label>
+                    <select name="funcao" id="funcao" {...register("funcao")}>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Professor">Professor</option>
+                    </select>
+                    {errors.funcao && <p>{"Aviso"}: {errors.funcao.message}</p>}
+
+                    <p className={css.possuiConta}>Já possui uma conta? Faça seu login <u onClick={() => navigate("/")}>aqui!</u></p>
 
                     <div className={css.botao}>
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" onClick={() => navigate("/cadastro")}>Cadastrar</button>
                     </div>
+                    {cadastro && <CadastroModal openModal={cadastro} closeModal={() => setCadastro(false)}/>}
                 </form>
             </section>
         </main>

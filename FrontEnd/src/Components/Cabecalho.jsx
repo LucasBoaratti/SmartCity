@@ -18,7 +18,7 @@ export function Cabecalho() {
                         <i class="bi bi-house-door-fill"></i>
                         <p>Home</p>
                     </div>
-                    <div className={css.sensores}>
+                    <div className={css.sensores} onClick={() => navigate("/sensores")}>
                         <i class="bi bi-broadcast"></i>
                         <p>Sensores</p>
                     </div>
