@@ -26,7 +26,7 @@ class AmbientesLCAPIView(ListCreateAPIView):
 class AmbientesRUDAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Ambientes.objects.all()
 
-    serializer_class = AmbientesSerializer
+    serializer_class = AmbientesSerializer 
 
     permission_classes = [IsAuthenticated]
 

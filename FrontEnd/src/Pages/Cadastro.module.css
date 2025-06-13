@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.formularioCadastro {
+    background-color: #0E4D15;
+    color: white;
+    padding: 45px;
+    width: 50%;
+    height: 70%;
+}
+
+.formularioCadastro h1 {
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 80px;
+    font-size: 30px;
+}
+
+.formularioCadastro label {
+    font-size: 16px;
+}
+
+.formularioCadastro input {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;    
+    padding-left: 3px;
+    margin: 10px 0;
+}
+
+.formularioCadastro p {
+    margin-bottom: 40px;
+}
+
+.formularioCadastro u {
+    cursor: pointer;
+}
+
+.botao {
+    text-align: center;
+}
+
+.botao button {
+    width: 115px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: #F5E517;
+    cursor: pointer;
+}

@@ -10,4 +10,4 @@ class IsProfessor(BasePermission):
     def has_permission(self, request, view):
         if request.user.is_authenticated and request.user.funcao == "Professor":
             return True
-        return False
+        return False 

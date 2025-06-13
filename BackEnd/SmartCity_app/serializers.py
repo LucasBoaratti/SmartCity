@@ -26,7 +26,7 @@ class HistoricoSerializer(serializers.ModelSerializer):
 
         fields = "__all__"
 
-class LoginUsuario(TokenObtainPairSerializer):
+class LoginUsuario(TokenObtainPairSerializer): #Coloca o nome e a função do usuário juntamente com o access token e o refresh_token
     def validate(self, attrs):
         data = super().validate(attrs)
 

@@ -9,11 +9,9 @@ import { LoginModal } from "../Components/LoginModal";
 
 const schemaLogin = z.object({
     username: z.string()
-        .min(1, "Digite um nome, por favor.")
-        .max(50, "O nome não pode ter mais de 50 caracteres."),
+        .min(1, "Digite um nome, por favor."),
     password: z.string()
-        .min(8, "Digite uma senha, por favor.")
-        .max(100, "A senha não pode ter mais de 100 caracteres."), 
+        .min(8, "A senha tem que ter no mínimo 8 caracteres.")
 })
 
 export function Login() {
