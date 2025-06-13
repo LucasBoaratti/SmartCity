@@ -46,7 +46,7 @@ export function Login() {
         catch(error) {
             setErro("Usuário não cadastrado no sistema.");
 
-            
+            alert("Usuário não cadastrado no sistema.");
         }
     }
 

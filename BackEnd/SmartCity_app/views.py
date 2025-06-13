@@ -1,9 +1,9 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from rest_framework.views import APIView
-from .models import Ambientes, Sensores, Historico
-from .serializers import AmbientesSerializer, SensoresSerializer, HistoricoSerializer, LoginUsuario
+from .models import Ambientes, Sensores, Historico, Usuario
+from .serializers import AmbientesSerializer, SensoresSerializer, HistoricoSerializer, LoginUsuario, UsuarioCadastradoSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import serializers
 from datetime import date, datetime
@@ -175,3 +175,10 @@ class VerSensoresRegistrados(APIView):
             return Response({"Erro": "Nenhum sensor encontrado com essa data."}, status=404)
     
         return Response(dataTemperatura.to_dict(orient="records"), status=200)
+    
+class UsuarioCadastradoLCAPIView(ListCreateAPIView):
+    queryset = Usuario.objects.all()
+
+    serializer_class = UsuarioCadastradoSerializer
+
+    permission_classes = [AllowAny]
