@@ -7,7 +7,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import serializers
 from datetime import date, datetime
+from .permissions import IsAdministrador
 import pandas as pd
+import os
 
 # Create your views here.
 
@@ -146,3 +148,30 @@ class AtualizarStatusSensor(UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     lookup_field = "pk"
+
+class VerSensoresRegistrados(APIView):
+    permission_classes = [IsAdministrador]
+
+    def post(self, request):
+        arquivo = os.path.join(os.getcwd(), "temperatura.xlsx") 
+
+        arquivoExcel = pd.read_excel(arquivo)
+
+        timestamp = request.data.get("timestamp")
+
+        if not timestamp:
+            return Response({"Erro": "Data e hora não encontradas."}, status=400)
+        
+        try:
+            formatoData = datetime.strptime(timestamp, "%Y-%m-%d")
+        except (ValueError, TypeError):
+            return Response({"Erro": "Data com formato inválido. Formato esperado: AAAA-MM-DD"}, status=400)
+        
+        arquivoExcel["timestamp"] = pd.to_datetime(arquivoExcel["timestamp"], errors="coerce")
+
+        dataTemperatura = arquivoExcel.loc[arquivoExcel["timestamp"].dt.date == formatoData.date()]
+
+        if dataTemperatura.empty:
+            return Response({"Erro": "Nenhum sensor encontrado com essa data."}, status=404)
+    
+        return Response(dataTemperatura.to_dict(orient="records"), status=200)

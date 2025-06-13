@@ -13,4 +13,5 @@ urlpatterns = [
     path("buscarStatusSensor", view=views.BuscarStatusSensor.as_view(), name="Buscar status do sensor."), 
     path("buscarDataSensor", view=views.BuscarDataSensor.as_view(), name="Buscar data do sensor."),
     path("atualizarStatusSensor", view=views.AtualizarStatusSensor.as_view(), name="Atualizar status do sensor."),
+    path("buscarSensorRegistrado", view=views.VerSensoresRegistrados.as_view(), name="Buscar data de um sensor já registrado."),
 ]
