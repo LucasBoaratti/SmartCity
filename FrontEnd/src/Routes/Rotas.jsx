@@ -5,6 +5,7 @@ import { Home } from "../Pages/Home";
 import { Cadastro } from "../Pages/Cadastro";
 import { Sensores } from "../Pages/Sensores";
 import { CriarSensor } from "../Pages/CriarSensor";
+import { EditarSensor } from "../Pages/EditarSensor";
 
 export function Rotas() {
     return (
@@ -27,6 +28,10 @@ export function Rotas() {
 
             <Route path="/criarSensor" element={<Index/>}>
                 <Route index element={<CriarSensor/>}/>
+            </Route>
+
+            <Route path="/editarSensor" element={<Index/>}>
+                <Route index element={<EditarSensor/>}/>
             </Route>
         </Routes>
     )

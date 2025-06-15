@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import css from "./CriarSensor.module.css";
+import css from "./EditarSensor.module.css";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import axios from "axios";
-import { CriarSensorModal } from "../Components/CriarSensorModal";
+import { EditarSensorModal } from "../Components/EditarSensorModal";
 
-const schemaPOSTSensor = z.object({
+const schemaPUTSensor = z.object({
      sensor: z.enum(["Temperatura", "Umidade", "Luminosidade", "Contagem"]),
      mac_address: z.string()
           .min(1, "Digite o Mac Address do sensor, por favor."),
@@ -20,57 +20,59 @@ const schemaPOSTSensor = z.object({
      status: z.enum(["True", "False"]),
 }) 
 
-export function CriarSensor() {
+export function EditarSensor() {
      const [erro, setErro] = useState();
-     const [postSensor, setPostSensor] = useState(false);
+     const [PUTSensor, setPUTSensor] = useState(false);
 
      const {
           register,
           handleSubmit,
           formState: { errors }
      } = useForm({
-          resolver: zodResolver(schemaPOSTSensor)
+          resolver: zodResolver(schemaPUTSensor)
      })
 
-     async function criar_sensor(data) {
-          const dados = {
-               ...data,
-          }
+     async function editar_sensor(data) {
+        const dados = {
+            ...data,
+        }
 
-          const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("access_token");
 
-          if(!token) {
-               setErro("Token não encontrado.");
-          }
+        const id = localStorage.getItem("id");
 
-          try {
-               await axios.post("http://127.0.0.1:8000/smartcity/sensor", dados, {
-                    headers: {
-                         "Authorization": `Bearer ${token}`,
-                         "Content-Type": "application/json",
-                    }
-               })
+        if(!token) {
+            setErro("Token não encontrado.");
+        }
 
-               setPostSensor(true);
-          }
-          catch(error) {
-               setErro("Erro ao criar sensor.", error);
-          }
-     }
+        try {
+            await axios.put(`http://127.0.0.1:8000/smartcity/sensor/${id}`, dados, {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            })
+
+            setPUTSensor(true);
+        }
+        catch(error) {
+            setErro("Erro ao editar sensor.", error);
+        }
+    }
 
      return (
           <main className={css.container}>
-               <h1>Cadastre seu sensor aqui</h1>
+               <h1>Edite seu sensor aqui</h1>
                <section className={css.formularioSensor}> 
-                    <form onSubmit={handleSubmit(criar_sensor)}>
-                         <h2>Cadastro de sensor</h2>
+                    <form onSubmit={handleSubmit(editar_sensor)}>
+                         <h2>Edição de sensor</h2>
                          <label htmlFor="sensor">Sensor:</label> 
                          <select name="sensor" id="sensor" {...register("sensor")}>
                               <option value="Temperatura">Temperatura</option>
                               <option value="Umidade">Umidade</option>
                               <option value="Luminosidade">Luminosidade</option>
                               <option value="Contagem">Contagem</option>
-                         </select> <br />                         
+                         </select> <br />
                          {errors.sensor && <p>{errors.sensor.message}</p>}
 
                          <label htmlFor="mac_address">Mac Address:</label> <br />
@@ -83,7 +85,7 @@ export function CriarSensor() {
                          /> <br />
                          {errors.mac_address && <p>{errors.mac_address.message}</p>}
 
-                         <label htmlFor="unidadeMedida">Unidade de medida:</label>   
+                         <label htmlFor="unidadeMedida">Unidade de medida:</label>     
                          <select 
                               name="unidadeMedida" 
                               id="unidadeMedida" 
@@ -92,7 +94,7 @@ export function CriarSensor() {
                               <option value="%">%</option>
                               <option value="lux">lux</option>
                               <option value="uni">uni</option>
-                         </select> <br />                         
+                         </select> <br />
                          {errors.unidade_med && <p>{errors.unidade_med.message}</p>}
 
                          <label htmlFor="latitude">Latitude:</label> <br />   
@@ -115,21 +117,20 @@ export function CriarSensor() {
                          /> <br />
                          {errors.longitude && <p>{errors.longitude.message}</p>}
 
-                         <label htmlFor="status">Status:</label> 
+                         <label htmlFor="status">Status:</label>
                          <select 
                               name="status" 
                               id="status" 
                               {...register("status")}>
                               <option value="True">True (Ativo)</option>
                               <option value="False">False (Inativo)</option>
-                         </select>
-                          <br />
+                         </select> <br />
                          {errors.status && <p>{errors.status.message}</p>}
                          
                          <div className={css.botao}>
-                              <button type="submit">Cadastrar</button>
+                              <button type="submit">Editar</button>
                          </div>
-                         <CriarSensorModal openModal={postSensor} closeModal={() => setPostSensor(false)}/>
+                         <EditarSensorModal openModal={PUTSensor} closeModal={() => setPUTSensor(false)}/>
                     </form> 
                </section>
           </main>

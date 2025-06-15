@@ -23,12 +23,26 @@ class Ambientes(models.Model):
         verbose_name_plural = "Ambientes"
 
 class Sensores(models.Model):
-    sensor = models.CharField(max_length=30)
+    escolha_sensor = [
+        ("Temperatura", "Temperatura"),
+        ("Umidade", "Umidade"),
+        ("Luminosidade", "Luminosidade"),
+        ("Contagem", "Contagem"),
+    ]
+
+    escolha_unidade_medida = [
+        ("°C", "°C"),
+        ("%", "%"),
+        ("lux", "lux"),
+        ("uni", "uni"),
+    ]
+
+    sensor = models.CharField(max_length=30, choices=escolha_sensor, default="Temperatura")
     mac_address = models.CharField(max_length=50)
-    unidade_med = models.CharField(max_length=20)
+    unidade_med = models.CharField(max_length=20, choices=escolha_unidade_medida, default="°C")
     latitude = models.FloatField()
     longitude = models.FloatField()
-    status = models.BooleanField()
+    status = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = "Sensores"
