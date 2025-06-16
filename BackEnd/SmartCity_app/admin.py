@@ -4,10 +4,11 @@ from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 
-class UsuarioAdmin(UserAdmin):
+class UsuarioAdmin(UserAdmin): 
+    #Adicionando novos campos para o usuário
     fieldsets = UserAdmin.fieldsets + (
         ('Função do usuário', {"fields": ("funcao",)}),
-    )
+    ) 
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Função do usuário, novamente", {"fields": ("funcao",)}),
     )

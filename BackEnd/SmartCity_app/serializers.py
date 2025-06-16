@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Ambientes, Sensores, Historico, Usuario
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Usuario
 
