@@ -1,5 +1,5 @@
 footer {
-    background-color: #A40AAB;
+    background-color: #0E0FFA;
     padding: 60px;
 }
 
@@ -59,6 +59,10 @@ footer {
 
 .links .link {
     font-size: 20px;
+}
+
+.sobreNos {
+    cursor: pointer;
 }
 
 .site {

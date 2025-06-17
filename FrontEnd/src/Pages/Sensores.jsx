@@ -3,11 +3,13 @@ import css from "./Sensores.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DeletarSensorModal } from "../Components/DeletarSensorModal";
+import { Permissoes } from "../Components/Permissoes";
 
 export function Sensores() {
      const [erro, setErro] = useState();
      const [sensor, setSensor] = useState([]);
      const [deletarSensor, setDeletarSensor] = useState(false);
+     const [modalPermissao, setModalPermissao] = useState(false);
 
      const navigate = useNavigate();
 
@@ -47,7 +49,7 @@ export function Sensores() {
                               <p className={css.paragrafoBotao}>Adicionar sensor</p>
                          </button>
                     </div>
-                    <div className={css.botaoVoltar}>
+                    <div className={css.botaoVoltar} onClick={() => navigate("/home")}>
                          <button type="button">
                               <i class="bi bi-chevron-left"></i>
                               <p className={css.paragrafoBotao}>Voltar</p>

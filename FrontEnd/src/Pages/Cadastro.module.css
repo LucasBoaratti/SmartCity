@@ -6,7 +6,7 @@
 }
 
 .formularioCadastro {
-    background-color: #0E4D15;
+    background-color: #8717FF;
     color: white;
     padding: 45px;
     width: 50%;
@@ -47,11 +47,9 @@
 }
 
 .formularioCadastro select {
-    background-color: #F5E517;
     padding: 7px;
     font-size: 16px;
     margin: 20px 0 30px 5px;
-    border-radius: 25px;
 }
 
 .botao {

@@ -7,6 +7,8 @@ import { Sensores } from "../Pages/Sensores";
 import { CriarSensor } from "../Pages/CriarSensor";
 import { EditarSensor } from "../Pages/EditarSensor";
 import { Filtros } from "../Pages/Filtros";
+import { Permissoes } from "../Components/Permissoes";
+import { SobreNos } from "../Pages/SobreNos"; 
 
 export function Rotas() {
     return (
@@ -36,7 +38,13 @@ export function Rotas() {
             </Route>
 
             <Route path="/filtros" element={<Index/>}>
-                <Route index element={<Filtros/>}/>
+                <Route index element={<Permissoes>
+                    <Filtros/>
+                </Permissoes>}/>
+            </Route>
+
+            <Route path="/sobreNos" element={<Index/>}>
+                <Route index element={<SobreNos/>}/>
             </Route>
         </Routes>
     )

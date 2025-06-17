@@ -1,6 +1,9 @@
 import css from "./Rodape.module.css";
+import { useNavigate } from "react-router-dom";
 
 export function Rodape() {
+    const navigate = useNavigate();
+
     return (
         <footer>
             <section className={css.rodape}>
@@ -19,9 +22,8 @@ export function Rodape() {
                     <p>19 99999-9999</p>
                 </section>
                 <section className={css.links}>
-                    <p className={css.link}>Links úteis</p>
-                    <p>Fale conosco</p>
-                    <p>Sobre nós</p>
+                    <p className={css.link}>Outras páginas</p>
+                    <p  onClick={() => navigate("/sobreNos")} className={css.sobreNos}>Sobre nós</p>
                 </section>
                 <section className={css.creditos}>
                     <p className={css.site}>Site desenvolvido por:</p>

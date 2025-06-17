@@ -14,15 +14,15 @@ export function Home() {
                 <img src={Banner} alt="Banner da SmartLucas: uma cidade com uma noite estrelada e prédios de fundo." />
                 <div className={css.sobreSmartLucas}>
                     <h2>Sobre a SmartLucas</h2>
-                    <p>A SmartLucas é uma cidade onde possui muitos sensores espalhados, sendo eles de temperatura, ambiente, contador e luminosidade para atender a população com dados da melhor forma possível, oferecendo uma confiabilidade nos sensores comandados pela escola principal da cidade: TecnoVille.</p>
+                    <p>A SmartLucas é uma cidade onde possui muitos sensores espalhados, sendo eles de temperatura, umidade, contador e luminosidade para atender a população com dados da melhor forma possível, oferecendo uma confiabilidade nos sensores comandados pela escola principal da cidade: TecnoVille.</p>
                 </div>
             </section>
             <div className={css.textoSensor}>
                 <h1>Conheça os sensores da SmartLucas</h1>
             </div>
             <section className={css.descricaoSensores}>
-                <div className={css.sensorContagem}>
-                    <div className={css.textoSensorContagem} onClick={() => setAbrirInformacoesTemperatura(!abrirInformacoesTemperatura)}>
+                <div className={css.sensorTemperatura}>
+                    <div className={css.textoSensorTemperatura} onClick={() => setAbrirInformacoesTemperatura(!abrirInformacoesTemperatura)}>
                         <p>Sensor de temperatura</p>
                         <i class="bi bi-chevron-down"></i>
                     </div>

@@ -14,7 +14,7 @@ export function Cabecalho() {
             <section className={css.cabecalho}>
                 <img src={Logo} alt="Logomarca do site com um fundo verde, um sensor marcando 19 graus e o nome do site." />
                 <div className={css.barraNavegacao}>
-                    <div className={css.home}>
+                    <div className={css.home} onClick={() => navigate("/home")}>
                         <i class="bi bi-house-door-fill"></i>
                         <p>Home</p>
                     </div>

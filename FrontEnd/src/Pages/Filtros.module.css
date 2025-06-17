@@ -12,7 +12,7 @@
 }
 
 .formularioBusca {
-    background-color: #0E4D15;
+    background-color: #8717FF;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,11 +27,11 @@
 }
 
 .formularioBusca select {
-    width: 125px;
-    height: 25px;
+    width: 150px;
+    height: 35px;
     margin-left: 5px;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .formularioBusca input {

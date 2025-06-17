@@ -18,7 +18,6 @@ const schemaFiltros = z.object({
 })
 
 export function Filtros() {
-
     const {
         register, 
         handleSubmit,
@@ -55,6 +54,10 @@ export function Filtros() {
             return;
         }
 
+        setDadosSensores([]);
+        setTabela(false);
+        setErro(null);
+
         const token = localStorage.getItem("access_token");
 
         try {
@@ -72,7 +75,7 @@ export function Filtros() {
         }
 
         catch(error) {
-            setErro("Erro ao buscar url.");
+            setErro("Erro ao buscar a url.");
         }
     }   
 
@@ -86,6 +89,11 @@ export function Filtros() {
                     <select 
                         name="sensores" 
                         id="sensores" 
+                        onChange={() => {
+                            setTabela(false);
+                            setDadosSensores([]);
+                            setErro(null);
+                        }}
                         {...register("sensor")}>
                         <option value="temperatura">Temperatura</option>
                         <option value="contador">Contador</option>
@@ -132,7 +140,7 @@ export function Filtros() {
                                 <td>{dadosSensores.valor}</td>
                                 <td>{dadosSensores.latitude}</td>
                                 <td>{dadosSensores.longitude}</td>
-                                <td>{dadosSensores.status ? "Ativo" : "Inativo"}</td>
+                                <td>{dadosSensores.status}</td>
                                 <td>{dadosSensores.timestamp}</td>
                             </tr>
                         ))}
