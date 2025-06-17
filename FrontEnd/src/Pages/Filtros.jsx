@@ -11,7 +11,7 @@ const schemaFiltros = z.object({
     .refine((data) => {
         const novaData = new Date();
         const dataAtual = new Date(data);
-        return dataAtual > novaData
+        return dataAtual <= novaData
     }, {
         message: "A data do sensor não pode ser depois da data de agora.",
     })
@@ -72,7 +72,7 @@ export function Filtros() {
         }
 
         catch(error) {
-            setErro(error);
+            setErro("Erro ao buscar url.");
         }
     }   
 
