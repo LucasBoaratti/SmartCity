@@ -22,7 +22,7 @@ export function DeletarSensorModal({ openModal, closeModal, atualizarTabela }) {
         }
 
         try {
-            await axios.delete(`http://127.0.0.1:8000/smartcity/sensor/${id}`, {
+            await axios.delete(`http://127.0.0.1:8000/smartcity/sensor/${id}/`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",

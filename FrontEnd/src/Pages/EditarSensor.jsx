@@ -48,7 +48,7 @@ export function EditarSensor() {
         }
 
         try {
-            await axios.put(`http://127.0.0.1:8000/smartcity/sensor/${id}`, dados, {
+            await axios.put(`http://127.0.0.1:8000/smartcity/sensor/${id}/`, dados, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",

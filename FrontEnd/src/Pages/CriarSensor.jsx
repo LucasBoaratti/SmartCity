@@ -46,7 +46,7 @@ export function CriarSensor() {
           }
 
           try {
-               await axios.post("http://127.0.0.1:8000/smartcity/sensor", dados, {
+               await axios.post("http://127.0.0.1:8000/smartcity/sensor/", dados, {
                     headers: {
                          "Authorization": `Bearer ${token}`,
                          "Content-Type": "application/json",

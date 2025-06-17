@@ -28,7 +28,7 @@ export function Login() {
 
     async function obter_dados_login(data) {
         try {
-            const response = await axios.post("http://127.0.0.1:8000/smartcity/login", {
+            const response = await axios.post("http://127.0.0.1:8000/smartcity/login/", {
                 username: data.username,
                 password: data.password,
             });

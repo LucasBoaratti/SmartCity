@@ -37,7 +37,7 @@ export function Cadastro() {
 
     async function obter_dados_cadastro(data) {
         try {
-            const response = await axios.post("http://127.0.0.1:8000/smartcity/cadastro", {
+            const response = await axios.post("http://127.0.0.1:8000/smartcity/cadastro/", {
                 username: data.username,
                 email: data.email,
                 password: data.password,

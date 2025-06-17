@@ -19,7 +19,7 @@ export function Sensores() {
           }
 
           try {   
-               const response = await axios.get("http://127.0.0.1:8000/smartcity/sensor", {
+               const response = await axios.get("http://127.0.0.1:8000/smartcity/sensor/", {
                     headers: {
                          "Authorization": `Bearer ${token}`,
                          "Content-Type": "application/json",
@@ -98,7 +98,7 @@ export function Sensores() {
                          </tbody>
                     </table>
                </section>
-               <p className={css.historicoSensores}>Ficou curioso para ver os dados de outros sensores? Veja o <u>histórico de sensores.</u></p>
+               <p className={css.historicoSensores} onClick={() => navigate("/filtros")}>Ficou curioso para ver os dados de outros sensores? Veja o <u>histórico de sensores.</u></p>
           </main>
      )
 }
