@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from .models import Ambientes, Sensores, Historico, Usuario
 from .serializers import AmbientesSerializer, SensoresSerializer, HistoricoSerializer, LoginUsuario, UsuarioCadastradoSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import serializers
 from datetime import date, datetime
@@ -160,6 +160,8 @@ class UsuarioCadastradoLCAPIView(ListCreateAPIView): #Classe de um usuário cada
     queryset = Usuario.objects.all()
 
     serializer_class = UsuarioCadastradoSerializer
+
+    permission_classes = [AllowAny]
 
 class VerSensoresContagemRegistrados(APIView): #Classe que busca um sensor de contagem pela data digitada por um usuário admin
     permission_classes = [IsAdministrador]

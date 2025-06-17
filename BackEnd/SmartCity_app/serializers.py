@@ -26,7 +26,7 @@ class HistoricoSerializer(serializers.ModelSerializer):
 
         fields = "__all__"
 
-class UsuarioCadastradoSerializer(serializers.ModelSerializer):
+class UsuarioCadastradoSerializer(serializers.ModelSerializer): #Criando a classe para o usuário cadastrado     
     username = serializers.CharField(write_only=True)
     email = serializers.CharField()
     password = serializers.CharField(write_only=True)
@@ -36,18 +36,18 @@ class UsuarioCadastradoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
 
-        fields = ["username", "email", "password", "confirmarSenha", "funcao"]
+        fields = ["username", "email", "password", "confirmarSenha", "funcao"] #Passando os campos para cadastro do usuário
 
         extra_kwargs = {
             "password": {"write_only": True},
         }
 
-    def validate(self, data):
+    def validate(self, data): #Validação das senhas
         if data["password"] != data["confirmarSenha"]:
             raise serializers.ValidationError("As senhas não coincidem.")
         return data
 
-    def create(self, validated_data):
+    def create(self, validated_data): #Criando o novo usuário e salvando no banco de dados
         username = validated_data["username"]
         email = validated_data["email"]
         password = validated_data["password"]

@@ -9,7 +9,9 @@ import { CriarSensorModal } from "../Components/CriarSensorModal";
 const schemaPOSTSensor = z.object({
      sensor: z.enum(["Temperatura", "Umidade", "Luminosidade", "Contagem"]),
      mac_address: z.string()
-          .min(1, "Digite o Mac Address do sensor, por favor."),
+          .regex(/^(0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/, {
+               message: "Formato inválido. Exemplo de formato: 00:1A:2B:3C:4D:5E",
+          }),
      unidade_med: z.enum(["°C", "%", "lux", "uni"]),
      latitude: z.number()
           .min(-90, "A latitude não pode ser menor que -90 graus.")
