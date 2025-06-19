@@ -1,7 +1,5 @@
 # Como usar o projeto
 
-## OBS: Instruções temporárias
-
 # BackEnd
 
 1. Acesse a pasta BackEnd: cd .\BackEnd\
