@@ -4,7 +4,7 @@ import css from "./Home.module.css";
 
 export function Home() {
     const [abrirInformacoesTemperatura, setAbrirInformacoesTemperatura] = useState(false);
-    const [abrirInformacoesAmbiente, setAbrirInformacoesAmbiente] = useState(false);
+    const [abrirInformacoesUmidade, setAbrirInformacoesUmidade] = useState(false);
     const [abrirInformacoesContagem, setAbrirInformacoesContagem] = useState(false);
     const [abrirInformacoesLuminosidade, setAbrirInformacoesLuminosidade] = useState(false);
 
@@ -33,14 +33,14 @@ export function Home() {
                         </div>
                     )}   
                 </div>
-                <section className={css.sensorAmbiente}>
-                    <div className={css.textoSensorAmbiente} onClick={() => setAbrirInformacoesAmbiente(!abrirInformacoesAmbiente)}>
-                        <p>Sensor de ambiente</p>
+                <section className={css.sensorUmidade}>
+                    <div className={css.textoSensorUmidade} onClick={() => setAbrirInformacoesUmidade(!abrirInformacoesUmidade)}>
+                        <p>Sensor de umidade</p>
                         <i class="bi bi-chevron-down"></i>
                     </div>
-                    {abrirInformacoesAmbiente && (
+                    {abrirInformacoesUmidade && (
                         <div className={css.informacoesSensor}>
-                            <p>Um sensor de ambiente mede e capta informações sobre diversos fatores ambientais como temperatura, luz, umidade, pressão, movimento etc. Um exemplo é um sensor de temperatura ambiente, que mede a temperatura de um ambiente em que ele está instalado. Para isso, ele detecta a temperatura do ar e converte em um valor legível, podendo ser em graus celsius (°C) ou em graus fahreinheit (°F), e o sensor faz isso em tempo real, detectando as mudanças de temperatura no ambiente e convertendo as informações da temperatura em sinal elétrico ou digital legível.</p>
+                            <p>Um sensor de umidade é um equipamento capaz de mensurar e exibir em um display a umidade relativa do ar e a temperatura de um ambiente, produto ou equipamento. Ele pode ser utilizado tanto ao ar livre como também em ambientes fechados. Trata-se de um instrumento muito utilizado em farmácias, laboratórios, almoxarifados e hemocentros, entre outros ambientes.</p>
                         </div>
                     )}   
                 </section>
